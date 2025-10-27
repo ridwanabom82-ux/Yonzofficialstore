@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YONZ STORE OFFICIAL - Layanan Digital</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            
+            /* --- PENGATURAN BODY UNTUK VIDEO BACKGROUND --- */
+            background-color: #154563; 
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+            min-height: 100vh;
+            color: #fff;
+            
+            visibility: visible; 
+            opacity: 1;
+        }
+
+        /* --- STYLING VIDEO LATAR BELAKANG --- */
+        #video-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; 
+            object-fit: cover; 
+            filter: brightness(0.5); 
+        }
+        
+        /* --- Gaya Konten Linktree --- */
+        .container {
+            width: 90%;
+            max-width: 450px; 
+            margin-top: 40px; 
+            background-color: rgba(0, 0, 0, 0.65); 
+            padding: 20px;
+            border-radius: 15px; 
+            box-sizing: border-box;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5); 
+            z-index: 10; 
+        }
+
+        /* Gaya Video 16:9 di dalam Linktree */
+        .top-video-wrapper {
+            width: 100%; 
+            margin: 0 0 15px 0; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            pointer-events: none; 
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .top-video-container {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; 
+        }
+        .top-video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Pembungkus untuk teks bergerak (marquee) */
+        .header-wrapper {
+            background-color: #38116b; 
+            padding: 5px 0;
+            margin-bottom: 15px; 
+            margin-top: 25px; 
+            
+            overflow: hidden; 
+            white-space: nowrap; 
+            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            border-radius: 5px; 
+        }
+
+        .header {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #EE82EE; 
+            display: inline-block; 
+            /* Kecepatan disesuaikan untuk teks yang lebih panjang agar terus terlihat */
+            animation: marquee 20s linear infinite; 
+            /* Tambahkan padding kanan yang cukup besar */
+            padding-right: 100%; 
+        }
+
+        .verified-badge {
+            margin: 0 5px; 
+            font-size: 1em; 
+            vertical-align: middle; 
+            color: #DDA0DD; 
+            text-shadow: none; 
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100%); } 
+            100% { transform: translateX(-100%); } 
+        }
+
+        /* Gaya Tombol Dasar */
+        .link-button { 
+            display: block;
+            background: linear-gradient(180deg, #8A2BE2, #4B0082); 
+            color: white;
+            padding: 15px 20px;
+            margin-bottom: 10px; 
+            border-radius: 10px;
+            text-decoration: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); 
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden; 
+            width: 100%; 
+            border: none; 
+            cursor: pointer;
+            box-sizing: border-box;
+        }
+        /* Efek Hover */
+        .link-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+        }
+        
+        /* EFEK CAHAYA UNGU SAAT DIKLIK/FOKUS */
+        .link-button:active,
+        .link-button:focus {
+            box-shadow: 
+                0 0 15px #9370DB, 
+                0 0 5px #9370DB,
+                0 4px 6px rgba(0, 0, 0, 0.4); 
+            transform: translateY(0); 
+        }
+
+        .link-button::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 70%);
+            transform: rotate(45deg);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .link-button:hover::before {
+            opacity: 1;
+        }
+        .emoji {
+            margin: 0 5px;
+        }
+
+        #music-button {
+            background: linear-gradient(180deg, #FF69B4, #C71585); 
+            margin-bottom: 10px; 
+            margin-top: 0; 
+        }
+        
+        #music-button:active,
+        #music-button:focus {
+            box-shadow: 
+                0 0 15px #9370DB, 
+                0 0 5px #9370DB,
+                0 4px 6px rgba(0, 0, 0, 0.4);
+            transform: translateY(0);
+        }
+
+        #channel-button {
+            background: linear-gradient(180deg, #128C7E, #075E54); 
+            margin-top: 15px; 
+        }
+        
+        #channel-button:active,
+        #channel-button:focus {
+            box-shadow: 
+                0 0 15px #9370DB, 
+                0 0 5px #9370DB,
+                0 4px 6px rgba(0, 0, 0, 0.4);
+            transform: translateY(0);
+        }
+
+        .note-box {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(255, 255, 255, 0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.95em;
+            line-height: 1.4;
+            color: #ddd;
+            max-height: 100px; 
+            overflow: auto; 
+            text-align: left;
+        }
+        .note-box strong {
+            color: #fff;
+        }
+
+        #myAudio {
+            display: none;
+        }
+    </style>
+</head>
+<body id="main-body">
+
+    <video autoplay loop muted playsinline id="video-background">
+        <source src="https://files.catbox.moe/a4z0m4.mp4" type="video/mp4">
+        Browser Anda tidak mendukung video background.
+    </video>
+
+    <div class="container">
+        
+        <div class="header-wrapper">
+            <div class="header">
+                <i class="fas fa-badge-check verified-badge"></i> ᖫ 𝒀𝑶𝑵𝑿 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑺𝑻𝑶𝑹𝑬 ᖭ <i class="fas fa-badge-check verified-badge"></i>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fas fa-badge-check verified-badge"></i> ᖫ 𝒀𝑶𝑵𝑿 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑺𝑻𝑶𝑹𝑬 ᖭ <i class="fas fa-badge-check verified-badge"></i>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fas fa-badge-check verified-badge"></i> ᖫ 𝒀𝑶𝑵𝑿 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑺𝑻𝑶𝑹𝑬 ᖭ <i class="fas fa-badge-check verified-badge"></i>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <i class="fas fa-badge-check verified-badge"></i> ᖫ 𝒀𝑶𝑵𝒁 𝑶𝑭𝑭𝑰𝑪𝑰𝑨𝑳 𝑺𝑻𝑶𝑹𝑬 ᖭ <i class="fas fa-badge-check verified-badge"></i>
+            </div>
+        </div>
+        <div class="top-video-wrapper">
+            <div class="top-video-container">
+                <video autoplay loop muted playsinline>
+                    <source src="https://files.catbox.moe/y65euz.mp4" type="video/mp4">
+                    Browser Anda tidak mendukung tag video.
+                </video>
+            </div>
+        </div>
+        <button id="music-button" class="link-button">
+            <span class="emoji">♫▶</span> 𝑷𝑳𝑨𝒀 𝑴𝑼𝑺𝑰𝑪 <span class="emoji">◀♫</span>
+        </button>
+        
+        <a href="https://wa.me/6285361384443" class="link-button" target="_blank">
+            <span class="emoji">✆</span> 𝑾𝑯𝑨𝑻𝑺𝑨𝑷𝑷 𝑵𝑼𝑴𝑩𝑬𝑹 𝑽𝟏 <span class="emoji">✆</span>
+        </a>
+        
+        <a href="https://wa.me/6281210560845?text=WhatsApp%202" class="link-button" target="_blank">
+            <span class="emoji">✆</span> 𝑾𝑯𝑨𝑻𝑺𝑨𝑷𝑷 𝑵𝑼𝑴𝑩𝑬𝑹 𝑽𝟐<span class="emoji">✆</span
+        </a>
+        
+        <a href="https://t.me/Yonzganteng" class="link-button" target="_blank">
+            <span class="emoji">☏</span> 𝑻𝑬𝑳𝑬𝑮𝑹𝑨𝑴 𝑨𝑪𝑪𝑶𝑼𝑵𝑻  <span class="emoji">☏</span>
+        </a>
+
+        <a href="https://www.tiktok.com/@yonz___cihuy?_t=ZS-904LcWBt2CV&_r=1" class="link-button" target="_blank">
+            <span class="emoji">♪</span> 𝑻𝑰𝑲𝑻𝑶𝑲 𝑨𝑪𝑪𝑶𝑼𝑵𝑻 <span class="emoji">♪</span>
+        </a>
+        
+        <a href="https://suntik-sosmed-yonz-store-official-x.vercel.app/" class="link-button" target="_blank">
+            <span class="emoji">⚡︎</span> SUNTIK SOSMED <span class="emoji">⚡︎</span>
+        </a>
+        
+        <a href="https://payment-yonz-store-official.vercel.app/" class="link-button" target="_blank">
+            <span class="emoji">$</span> 𝑷𝑨𝒀𝑴𝑬𝑵𝑻 𝑻𝑹𝑨𝑵𝑺𝑭𝑬𝑹 <span class="emoji">$</span>
+        </a>
+        
+        <a href="https://jasabug-yonz-store-official.vercel.app/" class="link-button" target="_blank">
+            <span class="emoji">☠︎︎</span> 𝑷𝑹𝑰𝑪𝑬 𝑩𝑼𝑮 𝑵𝑼𝑴𝑩𝑬𝑹 <span class="emoji">☠︎︎</span>
+        </a>
+
+        <a href="https://whatsapp.com/channel/0029VbAxjbM9Bb5rcxcI3q2r" id="channel-button" class="link-button" target="_blank">
+            <span class="emoji">⚠︎</span> 𝑪𝑯𝑨𝑵𝑬𝑳 𝑰𝑵𝑭𝑶𝑹𝑴𝑨𝑻𝑰𝑶𝑵 <span class="emoji">⚠︎</span>
+        </a>
+
+        <div class="note-box">
+            <strong>Catatan:</strong>
+            <p>Jika Nomor Tidak Aktif Bisa Saja Terkena Kenon,</p>
+            <p>Diharapkan untuk Chat Nomor Kedua Atau Nomor Ketiga pada button di link awal. Terimakasih!!!</p>
+        </div>
+        
+    </div>
+
+    <audio id="myAudio" loop>
+        <source src="https://files.catbox.moe/vmtloo.mp4" type="audio/mp4">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <script>
+        // === Skrip untuk Memastikan Video Utama Linktree Berjalan ===
+        document.addEventListener('DOMContentLoaded', () => {
+            const mainVideo = document.querySelector('.top-video-container video');
+            if (mainVideo) {
+                mainVideo.muted = true; 
+                mainVideo.play().catch(e => console.log("Gagal putar video utama:", e));
+            }
+        });
+
+        // === Skrip untuk Tombol Musik Latar Belakang ===
+        const audio = document.getElementById('myAudio');
+        const button = document.getElementById('music-button');
+        let isPlaying = false;
+
+        button.addEventListener('click', () => {
+            if (isPlaying) {
+                audio.pause();
+                button.innerHTML = '<span class="emoji">♫✘</span> 𝑴𝑼𝑺𝑰𝑪 𝑶𝑭𝑭';
+            } else {
+                audio.play().catch(error => {
+                    console.log("Autoplay failed:", error);
+                });
+                button.innerHTML = '<span class="emoji">♫✔</span> 𝑴𝑼𝑺𝑰𝑪 𝑶𝑵';
+            }
+            isPlaying = !isPlaying;
+        });
+    </script>
+
+</body>
+</html>
